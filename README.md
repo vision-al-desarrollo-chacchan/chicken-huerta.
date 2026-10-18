@@ -37,3 +37,5 @@ El alojamiento anterior en ChatGPT conserva su configuración y datos por separa
 Se añadieron cinco fotografías con licencia reutilizable a once productos. Las fotos propias cargadas desde el panel tienen prioridad. Créditos, fuentes, licencias y cambios: public/creditos-fotos.html y public/assets/menu/credits.json.
 
 Después de reconectar GitHub en Cloudflare, comprobar que un cambio en `main` genera un nuevo despliegue y que `/creditos-fotos.html` está disponible.
+
+Se incorporaron también fotografías referenciales con créditos a 25 bebidas y cócteles. Anís y manzanilla conservan su marcador hasta contar con fotografías apropiadas.

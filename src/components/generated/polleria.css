@@ -16,3 +16,5 @@
 html{scroll-behavior:smooth;scroll-padding-top:20px}.menu-cta{display:inline-flex;align-items:center;justify-content:center;border:1px solid #ddd6;border-radius:6px;padding:16px 20px;color:white!important;font-weight:bold;font-size:13px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap}.brasa button:disabled{opacity:.55;cursor:not-allowed}.visit .primary{display:inline-block;padding:16px 22px}.brasa main{overflow:hidden}@media(max-width:760px){.brasa header{flex-wrap:wrap}.brasa nav{display:flex;width:100%;justify-content:center;gap:26px;padding-top:16px}.brasa nav a{padding:10px 4px}.hero-actions{flex-direction:column;align-items:stretch}.menu-cta{padding:15px}.visit{gap:30px}.local-photos figcaption{font-size:11px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 .reference-photo-label{display:inline-block;font-size:10px;line-height:1.5;color:#e6bd7f!important;margin-bottom:8px;text-decoration:underline!important;text-underline-offset:3px}.reference-photo-label:hover{color:#fff!important}
+
+.beverage-art .menu-photo{object-fit:contain!important;width:100%;height:100%;background:#202020}.beverage-art{overflow:hidden}
