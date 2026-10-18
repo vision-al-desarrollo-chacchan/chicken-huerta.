@@ -1,0 +1,46 @@
+import {Miniflare} from 'miniflare';
+import {build} from 'esbuild';
+import {readFile,mkdtemp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import assert from 'node:assert/strict';
+const dir=await mkdtemp(join(tmpdir(),'huerta-check-'));
+await build({entryPoints:['lib/catalog-data.ts'],outfile:join(dir,'data.mjs'),bundle:true,platform:'node',format:'esm'});
+await build({entryPoints:['lib/catalog-model.ts'],outfile:join(dir,'model.mjs'),bundle:true,platform:'node',format:'esm'});
+const {initializeCatalog,readCatalog,addProduct,editProduct,hideProduct}=await import(join(dir,'data.mjs'));
+const {productInput,isOwnerEmail,imageMime}=await import(join(dir,'model.mjs'));
+const mf=new Miniflare({modules:true,script:'export default {fetch(){return new Response("test")}}',compatibilityDate:'2026-05-15',d1Databases:{DB:'catalog-check'},r2Buckets:['BUCKET']});
+try{
+ const db=await mf.getD1Database('DB');
+ const migration=await readFile('drizzle/0000_salty_riptide.sql','utf8');
+ for(const statement of migration.split('--> statement-breakpoint'))await db.prepare(statement).run();
+ assert.equal((await readCatalog(db)).products.length,119);
+ assert.equal(await initializeCatalog(db,'owner-test'),true);
+ assert.equal(await initializeCatalog(db,'owner-test'),false);
+ let data=await readCatalog(db,true);assert.equal(data.products.length,119);
+ assert.equal(data.products.reduce((sum,p)=>sum+p.priceCents,0),260050);
+ assert.equal(data.products.find(p=>p.id===181).priceCents,5600);
+ const original=data.products.find(p=>p.id===181);
+ // Validate explicit payload without UI-only metadata.
+ const {id,version,updatedAt,...payload}=original;
+ const changed=await editProduct(db,id,{...payload,priceCents:5790,imageKey:'products/test.jpg'},version,'owner-test');
+ assert.equal(changed.version,2);assert.equal(changed.priceCents,5790);
+ assert.equal(await editProduct(db,id,payload,version,'stale-tab'),null);
+ assert.equal((await readCatalog(db)).products.find(p=>p.id===181).imageKey,'products/test.jpg');
+ const added=await addProduct(db,{...payload,name:'Nuevo plato de prueba',priceCents:2300,visible:false},'owner-test');
+ assert.ok(added.id>218);assert.equal((await readCatalog(db)).products.length,119);
+ assert.equal((await readCatalog(db,true)).products.length,120);
+ await hideProduct(db,added.id,added.version,'owner-test');
+ assert.equal((await readCatalog(db,true)).products.length,119);
+ assert.equal((await hideProduct(db,added.id,added.version,'stale-tab')).meta.changes,0);
+ assert.equal(productInput.safeParse({...payload,priceCents:-1}).success,false);
+ assert.equal(productInput.safeParse({...payload,imageKey:'../secret'}).success,false);
+ assert.equal(isOwnerEmail('FREDY.FERH@gmail.com','fredy.ferh@gmail.com'),true);
+ assert.equal(isOwnerEmail('other@gmail.com','fredy.ferh@gmail.com'),false);
+ assert.equal(isOwnerEmail('fredy.ferh@gmail.com',undefined),false);
+ assert.equal(imageMime(new TextEncoder().encode('<svg onload="bad">')),null);
+ const bucket=await mf.getR2Bucket('BUCKET');const bytes=new Uint8Array([255,216,255,0]);assert.equal(imageMime(bytes).ext,'jpg');
+ await bucket.put('products/test.jpg',bytes,{httpMetadata:{contentType:'image/jpeg'}});
+ assert.equal((await bucket.get('products/test.jpg')).size,4);
+ console.log('PASS: importación idempotente de 119 productos; precios; persistencia; fotos; altas; ocultación; archivo; conflictos; validación y permisos.');
+}finally{await mf.dispose();await rm(dir,{recursive:true,force:true})}
