@@ -1,17 +1,33 @@
 # Chicken Huerta
 
-Página web y carta digital con 119 productos, carrito, pedidos por WhatsApp y administración de catálogo.
+Web y carta digital de Chicken Huerta. 119 productos, carrito, atención en mesa, recojo y delivery, pedidos por WhatsApp y panel del propietario.
 
-## Estado
+## Servicios
 
-Copia de la versión publicada el 18 de octubre de 2026. Incluye fotos reales de fachada y entrada, atención en mesa, recojo y delivery.
+- Cloudflare Workers aloja la web.
+- Supabase guarda catálogo, precios, configuración y fotos de platos.
+- Supabase Auth verifica la sesión del propietario. Cada API valida el token y RLS limita las modificaciones a correos expresamente autorizados. No se usan claves secretas ni service_role en el navegador.
 
-## Desarrollo
+## Compilar y publicar en Cloudflare
 
-Node.js 22.13 o posterior. Ejecutar `npm ci`, `npm run dev`. Validar catálogo con `node tests/catalog-check.mjs`. Compilar con `npm run build`.
+Node.js 22.13 o posterior. Directorio raíz del repositorio.
 
-## Cloudflare independiente
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy --config dist/server/wrangler.json`
+- Preview command (si se solicita): `npx wrangler versions upload --config dist/server/wrangler.json`
 
-Requiere base D1 (DB), almacenamiento R2 (BUCKET), migración SQL en drizzle/ y ADMIN_EMAIL. Antes de habilitar el administrador fuera de ChatGPT, sustituir app/chatgpt-auth.ts por autenticación verificada; no confiar en cabeceras de identidad enviadas por visitantes. La configuración Sites incluida pertenece al alojamiento original y debe adaptarse al nuevo despliegue.
+Cloudflare instala dependencias desde package-lock.json. El nombre del Worker es `chicken-huerta`. No requiere D1 ni R2 ni variables secretas para consultar la carta. La URL y clave publicable del proyecto Supabase están en lib/supabase/config.ts; los permisos se controlan en la base de datos.
 
-No incluye secretos ni datos de clientes. Los precios editados en producción y fotos subidas al almacenamiento deben migrarse por separado.
+## Supabase
+
+El esquema y los 119 productos ya están cargados en el proyecto `chicken-huerta`. Los archivos supabase/schema.sql y supabase/seed.sql documentan la instalación inicial; no volver a ejecutarlos sobre tablas existentes.
+
+La habilitación de fotos públicas y el correo administrador requieren autorización del propietario. supabase/storage-after-approval.sql documenta el paso de almacenamiento pendiente. La tabla huerta_admins se administra mediante acceso autorizado al proyecto, nunca desde el navegador público. Crear una cuenta en Supabase Auth no da permisos por sí solo.
+
+Para entrar al panel, el propietario debe tener un usuario de Supabase Auth con correo confirmado, contraseña propia y el mismo correo autorizado en huerta_admins. No usar la contraseña de la base de datos ni la de la cuenta de Supabase Dashboard.
+
+## Validación
+
+`node tests/catalog-check.mjs` verifica el catálogo y las políticas sin modificar datos. `npm run build` compila para Cloudflare.
+
+El alojamiento anterior en ChatGPT conserva su configuración y datos por separado. Los cambios de esta copia se publican desde GitHub hacia Cloudflare.
