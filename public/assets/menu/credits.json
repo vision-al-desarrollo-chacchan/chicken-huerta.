@@ -1,0 +1,47 @@
+[
+  {
+    "id": "broaster",
+    "title": "Fried Chicken (Unsplash).jpg",
+    "author": "Brian Chan tigerrulezzz",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Fried_Chicken_(Unsplash).jpg",
+    "changes": "Reducción de tamaño y compresión JPEG. La tarjeta puede recortar la imagen para ajustarla al diseño."
+  },
+  {
+    "id": "salchipapa",
+    "title": "Salchipapas.jpg",
+    "author": "Jorge G. Mori",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "source": "https://commons.wikimedia.org/wiki/File:Salchipapas.jpg",
+    "changes": "Reducción de tamaño y compresión JPEG. La tarjeta puede recortar la imagen para ajustarla al diseño."
+  },
+  {
+    "id": "parrillada",
+    "title": "Parrillada (3899322039).jpg",
+    "author": "Diego Torres Silvestre from Sao Paulo, Brazil",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Parrillada_(3899322039).jpg",
+    "changes": "Reducción de tamaño y compresión JPEG. La tarjeta puede recortar la imagen para ajustarla al diseño."
+  },
+  {
+    "id": "anticuchos",
+    "title": "Anticuchos en Lima.jpg",
+    "author": "Heather Sperling",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Anticuchos_en_Lima.jpg",
+    "changes": "Reducción de tamaño y compresión JPEG. La tarjeta puede recortar la imagen para ajustarla al diseño."
+  },
+  {
+    "id": "alitas-bbq",
+    "title": "Barbecue-Chicken-Wings 13264-480x360 (4791356615).jpg",
+    "author": "Emilian Robert Vicol from Com. Balanesti, Romania",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Barbecue-Chicken-Wings_13264-480x360_(4791356615).jpg",
+    "changes": "Compresión JPEG. La tarjeta puede recortar la imagen para ajustarla al diseño."
+  }
+]

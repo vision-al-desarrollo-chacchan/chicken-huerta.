@@ -22,7 +22,7 @@ Cloudflare instala dependencias desde package-lock.json. El nombre del Worker es
 
 El esquema y los 119 productos ya están cargados en el proyecto `chicken-huerta`. Los archivos supabase/schema.sql y supabase/seed.sql documentan la instalación inicial; no volver a ejecutarlos sobre tablas existentes.
 
-La habilitación de fotos públicas y el correo administrador requieren autorización del propietario. supabase/storage-after-approval.sql documenta el paso de almacenamiento pendiente. La tabla huerta_admins se administra mediante acceso autorizado al proyecto, nunca desde el navegador público. Crear una cuenta en Supabase Auth no da permisos por sí solo.
+El propietario autorizó la visualización pública de fotos y se configuró su correo administrador. supabase/storage-after-approval.sql documenta el paso de almacenamiento pendiente. La tabla huerta_admins se administra mediante acceso autorizado al proyecto, nunca desde el navegador público. Crear una cuenta en Supabase Auth no da permisos por sí solo.
 
 Para entrar al panel, el propietario debe tener un usuario de Supabase Auth con correo confirmado, contraseña propia y el mismo correo autorizado en huerta_admins. No usar la contraseña de la base de datos ni la de la cuenta de Supabase Dashboard.
 
@@ -31,3 +31,7 @@ Para entrar al panel, el propietario debe tener un usuario de Supabase Auth con 
 `node tests/catalog-check.mjs` verifica el catálogo y las políticas sin modificar datos. `npm run build` compila para Cloudflare.
 
 El alojamiento anterior en ChatGPT conserva su configuración y datos por separado. Los cambios de esta copia se publican desde GitHub hacia Cloudflare.
+
+## Fotos referenciales de internet
+
+Se añadieron cinco fotografías con licencia reutilizable a once productos. Las fotos propias cargadas desde el panel tienen prioridad. Créditos, fuentes, licencias y cambios: public/creditos-fotos.html y public/assets/menu/credits.json.
