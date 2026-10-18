@@ -483,10 +483,10 @@ export const menu = [
     "id": 148,
     "name": "Pepsi",
     "price": 2.0,
-    "category": "BEBIDAS",
+    "category": "Gaseosa",
     "sourceCategory": "Gaseosa",
     "detail": "",
-    "tag": "BEBIDAS",
+    "tag": "Gaseosa",
     "color": "#242424"
   },
   {
@@ -793,20 +793,20 @@ export const menu = [
     "id": 179,
     "name": "Filete de pechuga a lo pobre",
     "price": 25.0,
-    "category": "OFERTAS A LO POBRE",
+    "category": "Pobre",
     "sourceCategory": "Pobre",
     "detail": "",
-    "tag": "OFERTAS A LO POBRE",
+    "tag": "Pobre",
     "color": "#242424"
   },
   {
     "id": 180,
     "name": "1/8 de pollo",
     "price": 10.0,
-    "category": "POLLOS",
+    "category": "POLLO",
     "sourceCategory": "POLLO",
     "detail": "",
-    "tag": "POLLOS",
+    "tag": "POLLO",
     "color": "#242424"
   },
   {

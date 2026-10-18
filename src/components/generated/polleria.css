@@ -18,3 +18,6 @@ html{scroll-behavior:smooth;scroll-padding-top:20px}.menu-cta{display:inline-fle
 .reference-photo-label{display:inline-block;font-size:10px;line-height:1.5;color:#e6bd7f!important;margin-bottom:8px;text-decoration:underline!important;text-underline-offset:3px}.reference-photo-label:hover{color:#fff!important}
 
 .beverage-art .menu-photo{object-fit:contain!important;width:100%;height:100%;background:#202020}.beverage-art{overflow:hidden}
+
+/* Show every ERP category and let the full catalog scroll normally. */
+.brasa .filters{position:static;top:auto}.brasa .tabs{flex-wrap:wrap;white-space:normal;overflow:visible;gap:8px}.brasa .tabs button{white-space:normal;line-height:1.35;padding:10px 14px;flex-shrink:0}.brasa .product-grid{align-items:stretch}@media(max-width:760px){.brasa .tabs button{font-size:10px;padding:9px 11px}.brasa .tabs{gap:7px}}
